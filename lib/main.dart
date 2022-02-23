@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_site/pages/home.dart';
-import 'package:web_site/pages/main_page.dart';
 import 'package:web_site/utility/constants.dart';
 
 void main() {
@@ -21,16 +20,14 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         scaffoldBackgroundColor: bgColor,
         canvasColor: bgColor,
-        textTheme:  GoogleFonts.montserratTextTheme(
-            Theme.of(context).textTheme).apply(
-          bodyColor: Colors.white
-        ).copyWith(
-            bodyText1: TextStyle( color: bodyTextColor),
-            bodyText2: TextStyle( color: bodyTextColor),
-          ).apply(),
+        textTheme: GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.white)
+            .copyWith(
+              bodyText1: const TextStyle(color: bodyTextColor),
+              bodyText2: const TextStyle(color: bodyTextColor),
+            )
+            .apply(),
       ),
-
     );
   }
 }
-

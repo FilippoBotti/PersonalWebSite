@@ -5,11 +5,19 @@ abstract class WebsiteEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class OnFetchProjects extends WebsiteEvent {
+class ShowProjectsPage extends WebsiteEvent {
   final String user;
 
-  OnFetchProjects({required this.user});
+  ShowProjectsPage({required this.user});
 
   @override
   List<Object?> get props => [user];
+}
+
+class ShowContactPage extends WebsiteEvent {
+
+  ShowContactPage();
+
+  @override
+  List<Object?> get props => [];
 }

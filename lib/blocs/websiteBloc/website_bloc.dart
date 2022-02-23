@@ -1,29 +1,31 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:web_site/blocs/websiteBloc/website_events.dart';
 import 'package:web_site/blocs/websiteBloc/website_states.dart';
+import 'package:web_site/models/project.dart';
 import 'package:web_site/repositories/github_repository.dart';
 
 class WebsiteBloc extends Bloc<WebsiteEvent, WebsiteState> {
   final GithubRepository githubRepository;
 
-  WebsiteBloc({required this.githubRepository})
-      :  super(WebsiteInitial()){
-    on<OnFetchProjects>((event,emit) => _showRepos(event, emit));
+  WebsiteBloc({required this.githubRepository}) : super(WebsiteInitial()) {
+    on<ShowProjectsPage>((event, emit) => _showRepos(event, emit));
+    on<ShowContactPage>((event, emit) => _showContacts(emit));
   }
 
-  void _showRepos(OnFetchProjects event, Emitter<WebsiteState> emit) async{
+  void _showRepos(ShowProjectsPage event, Emitter<WebsiteState> emit) async {
     emit(WebsiteLoading());
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     try {
-      String repos = await githubRepository.getUserRepositories(event.user);
+      List<Project> repos =
+          await githubRepository.getUserRepositories(event.user);
       emit(WebsiteShowProjects(repos: repos));
     } catch (error) {
-      print(error);
       emit(WebsiteFailure());
     }
   }
 
-
+  void _showContacts(Emitter<WebsiteState> emit) async {
+    emit(WebsiteLoading());
+    emit(WebsiteShowContacts());
+  }
 }
-

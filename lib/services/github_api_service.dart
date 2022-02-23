@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:web_site/models/project.dart';
 
 
 
@@ -9,7 +10,7 @@ class GithubAPIService {
   String apiURL = 'api.github.com';
 
 
-  Future<String> getUserRepositories(String user) async {
+  Future<List<Project>> getUserRepositories(String user) async {
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
@@ -20,8 +21,11 @@ class GithubAPIService {
         headers: requestHeaders);
 
     if (response.statusCode == 200) {
-      print((utf8.decode(response.bodyBytes)).toString());
-        return ((utf8.decode(response.bodyBytes)).toString());
+      return (jsonDecode(utf8.decode(response.bodyBytes)) as List)
+          .map((model) => Project.fromJson(model))
+          .toList();
+
+
     }
     throw Exception('Failed to load post');
   }

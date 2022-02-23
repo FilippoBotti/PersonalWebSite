@@ -1,3 +1,4 @@
+import 'package:web_site/models/project.dart';
 import 'package:web_site/services/github_api_service.dart';
 
 class GithubRepository {
@@ -5,7 +6,7 @@ class GithubRepository {
 
   GithubRepository();
 
-  Future<String> getUserRepositories(String user) async {
+  Future<List<Project>> getUserRepositories(String user) async {
     final list = await _githubApiServices.getUserRepositories(user);
     return list;
   }
