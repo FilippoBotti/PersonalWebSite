@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         scaffoldBackgroundColor: bgColor,
         canvasColor: bgColor,
+        textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: primaryColor,
+        ),
         textTheme: GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)
             .apply(bodyColor: Colors.white)
             .copyWith(
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
               bodyText2: const TextStyle(color: bodyTextColor),
             )
             .apply(),
+          errorColor: primaryColor
       ),
     );
   }

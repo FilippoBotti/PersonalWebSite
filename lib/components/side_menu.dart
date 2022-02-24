@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_site/blocs/websiteBloc/website.dart';
 import 'package:web_site/blocs/websiteBloc/website_events.dart';
 import 'package:web_site/blocs/websiteBloc/website_states.dart';
+import 'package:web_site/models/side_menu_item.dart';
 import 'package:web_site/utility/constants.dart';
 import 'package:web_site/utility/responsive.dart';
 
@@ -19,41 +20,53 @@ class SideMenu extends StatelessWidget {
           const ProfileRow(),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                    child: Text("Projects", style: Theme.of(context).textTheme.subtitle1!,),
-                    onTap: (){
-                      BlocProvider.of<WebsiteBloc>(context).add(ShowProjectsPage(user: "FilippoBotti"));
-                      if(!Responsive.isLargeDesktop(context)) {
-                        Navigator.pop(context);
-                      }
-                    },
-                ),
-                InkWell(
-                  child: Expanded(child: Container(child: Text("Video", style: Theme.of(context).textTheme.subtitle1!,))),
-                  onTap: (){
-                    BlocProvider.of<WebsiteBloc>(context).add(ShowProjectsPage(user: "FilippoBotti"));
-                    if(!Responsive.isLargeDesktop(context)) {
-                      Navigator.pop(context);
-                    }
-                  },
-                ),
-                InkWell(
-                  child: Text("Contatti", style: Theme.of(context).textTheme.subtitle1!,),
-                  onTap: (){
-                    BlocProvider.of<WebsiteBloc>(context).add(ShowContactPage());
-                    if(!Responsive.isLargeDesktop(context)) {
-                      Navigator.pop(context);
-                    }
-                  },
-                ),
-              ],
-            ),
-          )
+            child: ListView.separated(
+                padding: EdgeInsets.zero,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: sideMenuItems.length,
+                itemBuilder: (BuildContext context, int position) {
+                  return SideMenuItemRow(
+                    sideMenuItem: sideMenuItems[position],
+                  );
+                }),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class SideMenuItemRow extends StatelessWidget {
+  const SideMenuItemRow({
+    Key? key,
+    required this.sideMenuItem,
+  }) : super(key: key);
+
+  final SideMenuItem sideMenuItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          sideMenuItem.name,
+          style: Theme.of(context).textTheme.subtitle1!,
+          textAlign: TextAlign.center,
+        ),
+      ),
+      onTap: () {
+        BlocProvider.of<WebsiteBloc>(context).add(sideMenuItem.event);
+        if (!Responsive.isLargeDesktop(context)) {
+          Navigator.pop(context);
+        }
+      },
     );
   }
 }
