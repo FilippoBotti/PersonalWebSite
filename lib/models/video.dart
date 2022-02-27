@@ -5,6 +5,7 @@ class YoutubeVideo {
   final String mediumImageUrl;
   final String highImageUrl;
   final String standardImageUrl;
+  final String videoId;
 
   YoutubeVideo({
     required this.name,
@@ -13,6 +14,7 @@ class YoutubeVideo {
     required this.mediumImageUrl,
     required this.highImageUrl,
     required this.standardImageUrl,
+    required this.videoId,
   });
 
   factory YoutubeVideo.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class YoutubeVideo {
       mediumImageUrl: json['snippet']['thumbnails']['medium']['url'],
       highImageUrl: json['snippet']['thumbnails']['high']['url'],
       standardImageUrl: json['snippet']['thumbnails']['standard']['url'],
+      videoId: json['contentDetails']['videoId'],
     );
   }
 
@@ -38,6 +41,7 @@ class YoutubeChannel {
   final String viewCount;
   final String subscriberCount;
   final String videoCount;
+  final String videoId;
 
   YoutubeChannel({
     required this.name,
@@ -45,6 +49,7 @@ class YoutubeChannel {
     required this.videoCount,
     required this.viewCount,
     required this.subscriberCount,
+    required this.videoId,
   });
 
   factory YoutubeChannel.fromJson(Map<String, dynamic> json) {
@@ -53,6 +58,8 @@ class YoutubeChannel {
         description: json['snippet']['description'],
         viewCount: json['statistics']['viewCount'],
         videoCount: json['statistics']['videoCount'],
-        subscriberCount: json['statistics']['subscriberCount']);
+        subscriberCount: json['statistics']['subscriberCount'],
+        videoId: json['id'],
+    );
   }
 }

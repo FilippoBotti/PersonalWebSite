@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:web_site/blocs/websiteBloc/website.dart';
 import 'package:web_site/blocs/websiteBloc/website_states.dart';
 import 'package:web_site/models/video.dart';
@@ -22,8 +23,13 @@ class VideosPage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: defaultPadding),
           child: SingleChildScrollView(
               child: Column(children: [
-            ChannelBanner(
-              channel: state.channel,
+            GestureDetector(
+              onTap: () async {
+                await launch("https://www.youtube.com/channel/${state.channel.videoId}");
+              },
+              child: ChannelBanner(
+                channel: state.channel,
+              ),
             ),
             Responsive(
               mobile: VideosGridView(
@@ -131,7 +137,7 @@ class VideoCard extends StatelessWidget {
             const Spacer(),
             TextButton(
                 onPressed: () async {
-                  //await launch(project.url);
+                  await launch("https://www.youtube.com/watch?v=${video.videoId}");
                 },
                 child: const Text(
                   "Guarda ora",
@@ -184,11 +190,11 @@ class ChannelBanner extends StatelessWidget {
                           style: Theme.of(context).textTheme.subtitle1!,
                         )
                       : Container(),
-                  Responsive(
-                    desktop: const SizedBox(
+                  const Responsive(
+                    desktop: SizedBox(
                       height: defaultPadding,
                     ),
-                    mobile: const SizedBox(
+                    mobile: SizedBox(
                       height: defaultPadding/2,
                     ),
                   ),
@@ -198,8 +204,8 @@ class ChannelBanner extends StatelessWidget {
                   ),
                   if (!(Responsive.isMobile(context) || Responsive.isMobileLarge(context) || Responsive.isTablet(context)))
                     ElevatedButton(
-                        onPressed: () {
-                          // print(Responsive.isTablet(context).toString() + Responsive.isLargeDesktop(context).toString());
+                        onPressed: () async {
+                          await launch("https://www.youtube.com/channel/${channel.videoId}");
                         },
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
@@ -211,7 +217,6 @@ class ChannelBanner extends StatelessWidget {
                           "Explore now",
                           style: TextStyle(color: darkColor),
                         )),
-
                 ]),
           )
         ]));
