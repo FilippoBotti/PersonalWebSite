@@ -9,7 +9,8 @@ import 'package:web_site/blocs/websiteBloc/website_states.dart';
 import 'package:web_site/components/side_menu.dart';
 import 'package:web_site/models/project.dart';
 import 'package:web_site/pages/projects_page.dart';
-import 'package:web_site/repositories/github_repository.dart';
+import 'package:web_site/pages/videos_page.dart';
+import 'package:web_site/repositories/repository.dart';
 import 'package:web_site/utility/constants.dart';
 import 'package:web_site/utility/responsive.dart';
 
@@ -23,7 +24,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final bloc = WebsiteBloc(githubRepository: GithubRepository());
+  final bloc = WebsiteBloc(repository: Repository());
 
   @override
   void initState() {
@@ -70,13 +71,13 @@ class _MainPageState extends State<MainPage> {
                           )
                         : (state is WebsiteShowContacts)
                             ? ContactsPage()
-                            : const LoadingContainer(),
+                            : (state is WebsiteShowVideos)
+                                ? VideosPage(state: state)
+                                : const LoadingContainer(),
                   ])));
         }));
   }
 }
-
-
 
 class LoadingContainer extends StatelessWidget {
   const LoadingContainer({
@@ -95,5 +96,3 @@ class LoadingContainer extends StatelessWidget {
     );
   }
 }
-
-

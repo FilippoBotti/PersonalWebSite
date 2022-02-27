@@ -14,10 +14,19 @@ class ShowProjectsPage extends WebsiteEvent {
   List<Object?> get props => [user];
 }
 
-class ShowContactPage extends WebsiteEvent {
+class ShowContactsPage extends WebsiteEvent {
 
-  ShowContactPage();
+  ShowContactsPage();
 
   @override
   List<Object?> get props => [];
 }
+
+class ShowVideosPage extends WebsiteEvent {
+
+  ShowVideosPage();
+
+  @override
+  List<Object?> get props => [];
+}
+

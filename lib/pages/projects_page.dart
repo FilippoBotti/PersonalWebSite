@@ -111,7 +111,7 @@ class ProjectCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: defaultPadding),
               child: Text(
-                project.desription!,
+                project.description!,
                 maxLines: !Responsive.isDesktop(context)
                     ? Responsive.isMobile(context)
                     ? 3

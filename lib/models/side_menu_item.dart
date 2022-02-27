@@ -9,7 +9,7 @@ class SideMenuItem {
 
 List<SideMenuItem> sideMenuItems = [
   SideMenuItem(name: "Projects", event: ShowProjectsPage(user: "FilippoBotti")),
-  SideMenuItem(name: "Video", event: ShowProjectsPage(user: "FilippoBotti")),
-  SideMenuItem(name: "Contacts", event: ShowContactPage()),
+  SideMenuItem(name: "Video", event: ShowVideosPage()),
+  SideMenuItem(name: "Contacts", event: ShowContactsPage()),
 
 ];
